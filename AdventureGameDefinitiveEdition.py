@@ -409,7 +409,7 @@ while True:
             time.sleep(0.2)
             inventory.append(I)
 
-    if cmd == "Teleport" and devmode:
+    if (cmd == "teleport" or cmd == 'tp') and devmode:
         for a in database:
             print(a)
         where = input("Where would you like to teleport to?")
@@ -426,6 +426,7 @@ while True:
                 inventory.append(get)
         else:
             print("Couldn't get item")
+    
     if cmd == "highscore":
         readfile=open('./files/leaderboard.txt')
         lines=readfile.readlines()
