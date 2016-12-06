@@ -34,8 +34,17 @@ path = "./"
 os.system("color a")
 devmode = True
 
+#Plugin loader
+plugins = {}
+for plugin in os.listdir('Plugins'):
+    if not plugin[0] == '$' and plugin.endswith('.py'):
+        file = open('Plugins/' + plugin, 'r')
+        class new_plugin:
+            exec(file.read())
+        file.close()
+        plugins[plugin] = new_plugin
 
-#difficluty settings
+#difficulty settings
 difficulty = input("What is the difficulty? Easy[E], medium[M] or Hard[H]\n")
 if difficulty == "E":
     energy = 150
@@ -64,7 +73,7 @@ else:
 
 
 #setup
-os.system("Title AdventureGame")
+os.system("title AdventureGame")
 
 if os.path.exists("__pycache__"):
     shutil.rmtree("__pycache__")
