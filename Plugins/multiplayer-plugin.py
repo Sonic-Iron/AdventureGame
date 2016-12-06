@@ -1,1 +1,2 @@
-id = '1'
+def on_loop():
+    pass

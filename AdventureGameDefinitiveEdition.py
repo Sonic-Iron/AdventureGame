@@ -199,7 +199,7 @@ while True:
         else:
             print("\nYou can see ",database[current_location]['objects_in_building'])
            
-    if cmd == "move":
+    elif cmd == "move":
         print("Where would you like to move to?")
         print(database[current_location]["directions"])
         new_location = input("")
@@ -238,7 +238,7 @@ while True:
                            elif what_to_do == "run":
                               energy = energy - 5
                               steps = steps + 1
-                              print("You run back to your previous location and get slighly tried")
+                              print("You run back to your previous location and get slighly tired")
                            else:
                                print("\nYou did not run away or fight the monster so you get defeated by it anyway")
                                energy = energy - monster_database[current_monster]["health"]
@@ -290,7 +290,7 @@ while True:
                     info()
                 
 
-    if cmd[0:8] == "pick up ":
+    elif cmd[0:8] == "pick up ":
         if cmd[8:len(cmd)] in database[current_location]["objects_in_building"]:
             picked_up_item = cmd[8:len(cmd)]
             if database[current_location]['type'] == "Selling_point":
@@ -307,7 +307,7 @@ while True:
                 wintype = "winner"
                 break
 
-    if cmd[0:4] == "drop":
+    elif cmd[0:4] == "drop":
         dropitem = cmd[5:len(cmd)]
         if dropitem in object_database:
             if dropitem in inventory:
@@ -318,23 +318,13 @@ while True:
                 print("That item is not in your inventory!")
         else:
             print("That item does not exist!")
-       
 
-    while len(inventory) > 5:
-        print("You have more than 5 items")
-        dropped_item = input("Which item would you like to drop?")
-        if dropped_item not in inventory:
-            print("That item is not in your inventory")
-        else:
-            database[current_location]["objects_in_building"].append(dropped_item)
-            inventory.remove(dropped_item)
-
-    if cmd == "inventory":
+    elif cmd == "inventory":
         print(inventory)
 
 
 
-    if database[current_location]["type"] == "Work_point":
+    elif database[current_location]["type"] == "Work_point":
         if cmd == ("work"):
             print("You work for",Work_seconds,"hours")
             oldworksecs = Work_seconds
@@ -350,7 +340,7 @@ while True:
 
 
 
-    if cmd == "sleep":
+    elif cmd == "sleep":
         sleepy = sleep_seconds
         print("You sleep for",sleep_seconds,"hours")
         while sleepy > 0:
@@ -361,7 +351,7 @@ while True:
         energy = energy +15
         info()
 
-    if cmd == "eat":
+    elif cmd == "eat":
         print(inventory)  
         eat = input("What would you like to eat?")
         if eat not in inventory: 
@@ -374,7 +364,7 @@ while True:
             else:
                 print("That is not a food\n")
                 
-    if cmd == 'devmode':
+    elif cmd == 'devmode':
         print('''Devmode help:
 Enable by setting devmode to True
 
@@ -383,7 +373,7 @@ examine item - see details for item
 give item (also get) get an item
 teleport (also tp) go to a location''')
     
-    if cmd == "examine item" and devmode:
+    elif cmd == "examine item" and devmode:
         print(object_database)
         current_item = input ("Which item would you like to look at?")
         if current_item not in object_database:
@@ -392,11 +382,7 @@ teleport (also tp) go to a location''')
             print(object_database[current_item]["description"])
             print("It has",object_database[current_item]["attack_points"]," attack points")
 
-
-    if xp > 10:
-        print("You leveled up one level")
-
-    if cmd == "give item" and devmode:
+    elif cmd == "give item" and devmode:
         for c in object_database:
             print(c)
         I =input("Which item would you like to have?")
@@ -414,13 +400,13 @@ teleport (also tp) go to a location''')
             time.sleep(0.2)
             inventory.append(I)
 
-    if (cmd == "teleport" or cmd == 'tp') and devmode:
+    elif (cmd == "teleport" or cmd == 'tp') and devmode:
         for a in database:
             print(a)
         where = input("Where would you like to teleport to?")
         if where in database:
             current_location = where
-    if cmd == 'get' and devmode:
+    elif cmd == 'get' and devmode:
         for o in object_database.keys():
             print(o)
         get = input('Which item would you like to get? ')
@@ -432,11 +418,26 @@ teleport (also tp) go to a location''')
         else:
             print("Couldn't get item")
     
-    if cmd == "highscore":
+    elif cmd == "highscore":
         readfile=open('./files/leaderboard.txt')
         lines=readfile.readlines()
         print("The current highscore is by...\n",(lines[0]),"and their score is...\n",(lines[1]),"seconds,\n if you beat it you get to be the highscorer for this computer \n")
         readfile.close()
+    else:
+        print(cmd, 'not recognised')
+
+    #Non commands
+    if xp > 10:
+        print("You leveled up one level")
+
+    while len(inventory) > 5:
+        print("You have more than 5 items")
+        dropped_item = input("Which item would you like to drop?")
+        if dropped_item not in inventory:
+            print("That item is not in your inventory")
+        else:
+            database[current_location]["objects_in_building"].append(dropped_item)
+            inventory.remove(dropped_item)
 
          
 
