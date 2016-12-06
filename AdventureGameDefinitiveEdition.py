@@ -361,9 +361,6 @@ while True:
         energy = energy +15
         info()
 
-
-
-
     if cmd == "eat":
         print(inventory)  
         eat = input("What would you like to eat?")
@@ -377,7 +374,15 @@ while True:
             else:
                 print("That is not a food\n")
                 
+    if cmd == 'devmode':
+        print('''Devmode help:
+Enable by setting devmode to True
 
+Commands:
+examine item - see details for item
+give item (also get) get an item
+teleport (also tp) go to a location''')
+    
     if cmd == "examine item" and devmode:
         print(object_database)
         current_item = input ("Which item would you like to look at?")
@@ -391,7 +396,7 @@ while True:
     if xp > 10:
         print("You leveled up one level")
 
-    if cmd == "Give Item" and devmode:
+    if cmd == "give item" and devmode:
         for c in object_database:
             print(c)
         I =input("Which item would you like to have?")
