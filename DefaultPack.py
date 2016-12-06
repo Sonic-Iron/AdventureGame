@@ -48,6 +48,12 @@ def default_database():
               "directions":("Business","Friends House"),
               "dependency":"a lantern",
               "type":"General_point"},
+    "Portal":{"location_name":"Portal",
+              "description":"Somewhere for other players to drop in",
+              "objects_in_building":[],
+              "directions":("Business","Forest"),
+              "dependency":"",
+              "type":"Drop_point"},
     }
 
 def default_object_database():
