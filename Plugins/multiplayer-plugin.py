@@ -1,2 +1,3 @@
-def on_loop():
-    pass
+def cmd_intercept(cmd):
+    run_next = True
+    return run_next

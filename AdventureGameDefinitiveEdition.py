@@ -191,6 +191,12 @@ while True:
         wintype = "death"
         break        
 
+    for plugin in plugins:
+        try:
+            plugin.cmd_intercept(cmd)
+        except AttributeError:
+            pass #Do nothing
+    
     if cmd == "look":
         print("Your location is ",current_location)
         print(database[current_location]['description'])
