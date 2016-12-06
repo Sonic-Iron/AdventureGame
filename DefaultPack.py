@@ -51,9 +51,9 @@ def default_database():
     "Portal":{"location_name":"Portal",
               "description":"Somewhere for other players to drop in",
               "objects_in_building":[],
-              "directions":("Business","Forest"),
+              "directions":["Business","Forest"],
               "dependency":"",
-              "type":"Drop_point"},
+              "type":"General_point"},
     }
 
 def default_object_database():

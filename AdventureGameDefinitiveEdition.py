@@ -1,5 +1,5 @@
 print("Do not put in a false answer for the pack, it will crash")
-print("Use this in termanal")
+print("Use this in terminal")
 
 #will need to use this code later
 #
@@ -75,7 +75,7 @@ else:
 #setup
 os.system("title AdventureGame")
 
-if os.path.exists("__pycache__"):
+if os.path.exists("__pycache__"): #remove cache
     shutil.rmtree("__pycache__")
 
 dirs = os.listdir(path)
@@ -106,7 +106,7 @@ libraryname = myimport[0:lengthoffilename-3]
 
 print(libraryname)
 
-myimport = __import__(libraryname)
+myimport = __import__(libraryname) #import data from chosen map
 
 database = myimport.default_database()
 object_database = myimport.default_object_database()
@@ -137,7 +137,7 @@ def info():
     print("you have :\n\t",level,"\tlevels.\n\t",coins,"\tcoins.\n\t",hunger," \thunger.\n\t",energy," \tenergy. \n\t",xp," \txp.\n\t",steps," \tsteps.")
 
 
-def helper():
+def helper(): #help tool
         print("You can 'look', 'move', 'health','drop item','pick up', 'inventory','work','sleep")
         knowabout = input("What would you like to know about?")
         if knowabout == "look":
@@ -169,7 +169,7 @@ while True:
     print("You are at the ",current_location)
     cmd = input("\nEnter a command : ")
 
-    for a in inventory:
+    for a in inventory: #check inventory for collectables
         for b in collectables:
             if b in a:
                 energy = energy + 5
@@ -178,7 +178,7 @@ while True:
         helper()
 
         
-    if cmd == "health":
+    if cmd == "health": #show info for player
         info()
 
 
@@ -203,7 +203,7 @@ while True:
         print("Where would you like to move to?")
         print(database[current_location]["directions"])
         new_location = input("")
-        if new_location not in database[current_location]['directions']:
+        if new_location not in database[current_location]['directions']: #Can't find location
            print("Can't go there...")
         else:
             if 'dependency' in (database[new_location]): 
@@ -273,7 +273,7 @@ while True:
                             energy = energy - monster_database[current_monster]["health"]
                             current_location = new_location
                             steps += 1
-                            print("You get defeated by the",current_monster,"and get trired")
+                            print("You get defeated by the", current_monster, "and get trired")
                             info()
                     elif what_to_do == "run":
                         energy = energy - 5
@@ -379,6 +379,7 @@ while True:
                 
 
     if cmd == "examine item" and devmode:
+        print(object_database)
         current_item = input ("Which item would you like to look at?")
         if current_item not in object_database:
             print("That item dosn't exist!")
@@ -414,8 +415,17 @@ while True:
         where = input("Where would you like to teleport to?")
         if where in database:
             current_location = where
-
-
+    if cmd == 'get' and devmode:
+        for o in object_database.keys():
+            print(o)
+        get = input('Which item would you like to get? ')
+        if get in object_database:
+            if get in inventory:
+                print('You already have one!')
+            else:
+                inventory.append(get)
+        else:
+            print("Couldn't get item")
     if cmd == "highscore":
         readfile=open('./files/leaderboard.txt')
         lines=readfile.readlines()
