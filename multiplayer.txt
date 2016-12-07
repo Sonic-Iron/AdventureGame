@@ -1,0 +1,2 @@
+
+speech:player1:hi
