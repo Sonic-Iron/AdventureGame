@@ -52,7 +52,6 @@ def default_database():
               "description":"Somewhere for other players to drop in",
               "objects_in_building":[],
               "directions":["Business","Forest"],
-              "dependency":"",
               "type":"General_point"},
     }
 

@@ -191,11 +191,16 @@ while True:
         wintype = "death"
         break        
 
+    cont = True
     for plugin in plugins:
         try:
-            plugin.cmd_intercept(cmd)
+            plugin_continue = plugins[plugin].cmd_intercept(cmd)
+            if not plugin_continue:
+                cont = False
         except AttributeError:
             pass #Do nothing
+    if not cont:
+        continue #Contradictory, but this takes you back to the start of the loop
     
     if cmd == "look":
         print("Your location is ",current_location)
