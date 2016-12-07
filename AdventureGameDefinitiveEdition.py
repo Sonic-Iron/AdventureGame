@@ -10,10 +10,7 @@ print("Use this in terminal")
 
 
 #imports
-import random
-import time
-import os,sys
-import shutil
+import random, time, os, sys, shutil
 import os.path
 
 #variables
@@ -46,32 +43,33 @@ for plugin in os.listdir('Plugins'):
         plugins[plugin] = new_plugin
 
 #difficulty settings
-difficulty = input("What is the difficulty? Easy[E], medium[M] or Hard[H]\n")
+difficulty = None
+while not (difficulty == 'E' or difficulty == 'M' or difficulty == 'H'):
+    if not difficulty == None:
+        print(difficulty, 'is not a diffulty level')
+    difficulty = input("What is the difficulty? Easy[E], medium[M] or Hard[H]\n").upper()
+
 if difficulty == "E":
     energy = 150
     hunger = 150
     Work_seconds = 3
     sleep_seconds = 4
     monster_attack_rate = 3
-if difficulty == "M":
+    print('Easy difficulty selected')
+elif difficulty == "M":
     energy = 100
     hunger = 100
     Work_seconds = 10
     sleep_seconds = 10
     monster_attack_rate = 2
-if difficulty == "H":
+    print('Medium difficulty selected')
+elif difficulty == "H":
     energy = 50
     hunger = 50
     Work_seconds  = 15
     sleep_seconds = 15
     monster_attack_rate = 1
-else:
-    energy = 100
-    hunger = 100
-    Work_seconds = 10
-    sleep_seconds = 10
-    monster_attack_rate = 2
-
+    print('Hard difficulty selected')
 
 #setup
 os.system("title AdventureGame")
@@ -79,32 +77,34 @@ os.system("title AdventureGame")
 if os.path.exists("__pycache__"): #remove cache
     shutil.rmtree("__pycache__")
 
-dirs = os.listdir(path)
+files = os.listdir()
+allfiles = []
+for file in files:
+    if file.endswith('.py') and not file == 'AdventureGameDefinitiveEdition.py' and not file.startswith('$'): #Is a python file
+        allfiles.append(file)
 
-filelist = list()
-i=0
-for file in dirs:
-    if file == "AdventureGameDefinitiveEdition.py":
-        ""
-    elif file == "files":
-        ""
-    else:
-        filelist.append(i)
-        filelist[i] = file
-        i=i+1
-        print(i,".",file[0:len(file)-3])
+if len(allfiles) == 0:
+    print('No packs')
+    while True:
+        input('')
+elif len(allfiles) == 1:
+    print('Only one pack (' + allfiles[0][:len(allfiles[0]) - 3] + ') - selecting that pack')
+    mychoice = allfiles[0]
+    myimport = mychoice
+else:
+    print('Packs (' + str(len(allfiles)) + '):')
+    for file_num in range(len(allfiles)):
+        print(str(file_num + 1) + ': ' + allfiles[file_num][:len(allfiles[file_num]) - 3])
+    mychoice = -1
+    while not -1 < mychoice < len(allfiles):
+        try:
+            mychoice = int(input('Type the number for the pack you want: ')) - 1
+        except ValueError:
+            mychoice = 0
+            print('Autofill selected the first pack in the list for you')
+    myimport = allfiles[mychoice]
 
-
-chooseLibrary = "Which pack do you want? 1-"+str(len(filelist))+" "
-mychoice = input(chooseLibrary)
-if mychoice == "":
-    mychoice = 1
-
-myimport = filelist[int(mychoice)-1]
-lengthoffilename = len(myimport)
-libraryname = myimport[0:lengthoffilename-3]
-
-
+libraryname = myimport[:len(myimport) - 3]
 print(libraryname)
 
 myimport = __import__(libraryname) #import data from chosen map
