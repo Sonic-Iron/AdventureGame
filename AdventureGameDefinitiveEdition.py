@@ -1,3 +1,4 @@
+#-*- coding:UTF-8 -*-
 print("Do not put in a false answer for the pack, it will crash")
 print("Use this in terminal")
 
@@ -203,12 +204,12 @@ while True:
         continue #Contradictory, but this takes you back to the start of the loop
     
     if cmd == "look":
-        print("Your location is ",current_location)
+        print("Your location is", current_location)
         print(database[current_location]['description'])
         if len(database[current_location]['objects_in_building']) <= 0:
             print("\nThere's nothing else here")
         else:
-            print("\nYou can see ",database[current_location]['objects_in_building'])
+            print("\nYou can see", database[current_location]['objects_in_building'])
            
     elif cmd == "move":
         print("Where would you like to move to?")
@@ -219,13 +220,13 @@ while True:
         else:
             if 'dependency' in (database[new_location]): 
                    if database[new_location]['dependency'] not in inventory:
-                     print("You need ",database[new_location]['dependency'],"to go there.") 
+                     print("You need", database[new_location]['dependency'], "to go there.") 
                    else:
                        x = random.randint(0,monster_attack_rate)
                        if x == 0:
                            keeys = list(monster_database.keys())
                            current_monster = random.choice(keeys)
-                           print("You get attacked by",current_monster,)
+                           print("You get attacked by", current_monster,)
                            print(monster_database[current_monster]["picture"])
                            what_to_do = input("Do you want to run or attack?")
                            if what_to_do == "attack":
@@ -233,7 +234,7 @@ while True:
                                 #Add up the attack points for any object that has them
                                    if "attack" in object_database[item]:
                                        attack_strength = attack_strength + object_database[item]['attack']
-                               print("Attack stength is ",attack_strength)         
+                               print("Attack stength is", attack_strength)         
                                if attack_strength > (monster_database[current_monster]["health"]):                 
                                    xp = xp + 1  
                                    print("You defeated the monster")
@@ -244,7 +245,7 @@ while True:
                                    energy = energy - monster_database[current_monster]["health"]
                                    current_location = new_location
                                    steps += 1
-                                   print("You get defeated by the",current_monster,"and get tired")
+                                   print("You get defeated by the", current_monster, "and get tired")
                                    info()
                            elif what_to_do == "run":
                               energy = energy - 5
@@ -264,7 +265,7 @@ while True:
                 if x == 0:
                     keeys = list(monster_database.keys())
                     current_monster = random.choice(keeys)
-                    print("You get attacked by ",current_monster,)
+                    print("You get attacked by", current_monster)
                     print(monster_database[current_monster]["picture"])
                     what_to_do = input("Do you want to run or attack?")
                     if what_to_do == "attack":
@@ -301,7 +302,7 @@ while True:
                     info()
                 
 
-    elif cmd[0:8] == "pick up ":
+    elif cmd.startswith("pick up"):
         if cmd[8:len(cmd)] in database[current_location]["objects_in_building"]:
             picked_up_item = cmd[8:len(cmd)]
             if database[current_location]['type'] == "Selling_point":
@@ -313,12 +314,12 @@ while True:
             else:
                 inventory.append(picked_up_item)
                 database[current_location]['objects_in_building'].remove(picked_up_item)
-                print("Your inventory is",inventory)    
+                print("Your inventory is", inventory)    
             if picked_up_item == win:
                 wintype = "winner"
                 break
 
-    elif cmd[0:4] == "drop":
+    elif cmd.startswith("drop"):
         dropitem = cmd[5:len(cmd)]
         if dropitem in object_database:
             if dropitem in inventory:
