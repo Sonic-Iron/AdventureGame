@@ -32,7 +32,9 @@ itemcouldwin = []
 couldstart = []
 path = "./"
 os.system("color a")
+os.system("Title AdventureGame")
 devmode = True
+name = input("What is your name?")
 
 
 #difficluty settings
@@ -64,7 +66,7 @@ else:
 
 
 #setup
-os.system("Title AdventureGame")
+
 
 if os.path.exists("__pycache__"):
     shutil.rmtree("__pycache__")
@@ -85,7 +87,7 @@ for file in dirs:
         print(i,".",file[0:len(file)-3])
 
 
-chooseLibrary = "Which pack do you want? 1-"+str(len(filelist))+" "
+chooseLibrary = "Which server do you want? 1-"+str(len(filelist))+" "
 mychoice = input(chooseLibrary)
 if mychoice == "":
     mychoice = 1
@@ -309,6 +311,8 @@ while True:
                 print("That item is not in your inventory!")
         else:
             print("That item does not exist!")
+
+        
        
 
     while len(inventory) > 5:
@@ -413,6 +417,7 @@ while True:
         print("The current highscore is by...\n",(lines[0]),"and their score is...\n",(lines[1]),"seconds,\n if you beat it you get to be the highscorer for this computer \n")
         readfile.close()
 
+
          
 
 if wintype == "death":
@@ -432,7 +437,6 @@ if wintype == "winner":
         name = lines[0]
         time = lines[1]
         print("You have beaten the highscorer of ",name,", they had a score of ",time,"seconds")
-        name = input("What is your name?")
         file = open("./files/leaderboard.txt" ,"w")
         file.write(name + "\n" + str(round(elapsed, 3)))
         file.close()
