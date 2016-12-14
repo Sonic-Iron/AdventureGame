@@ -74,16 +74,11 @@ elif difficulty == "H":
     print('Hard difficulty selected')
 
 #setup
-<<<<<<< HEAD
 os.system("title AdventureGame")
-=======
-
->>>>>>> origin/master
 
 if os.path.exists("__pycache__"): #remove cache
     shutil.rmtree("__pycache__")
 
-<<<<<<< HEAD
 files = os.listdir()
 allfiles = []
 for file in files:
@@ -112,7 +107,7 @@ else:
     myimport = allfiles[mychoice]
 
 libraryname = myimport[:len(myimport) - 3]
-=======
+
 dirs = os.listdir(path)
 
 filelist = list()
@@ -138,8 +133,6 @@ myimport = filelist[int(mychoice)-1]
 lengthoffilename = len(myimport)
 libraryname = myimport[0:lengthoffilename-3]
 
-
->>>>>>> origin/master
 print(libraryname)
 
 myimport = __import__(libraryname) #import data from chosen map
@@ -365,12 +358,6 @@ while True:
                 print("That item is not in your inventory!")
         else:
             print("That item does not exist!")
-<<<<<<< HEAD
-=======
-
-        
-       
-
     while len(inventory) > 5:
         print("You have more than 5 items")
         dropped_item = input("Which item would you like to drop?")
@@ -379,7 +366,6 @@ while True:
         else:
             database[current_location]["objects_in_building"].append(dropped_item)
             inventory.remove(dropped_item)
->>>>>>> origin/master
 
     elif cmd == "inventory":
         print(inventory)
@@ -496,9 +482,6 @@ teleport (also tp) go to a location''')
         else:
             database[current_location]["objects_in_building"].append(dropped_item)
             inventory.remove(dropped_item)
-
-
-         
 
 if wintype == "death":
     os.system("cls")
