@@ -32,13 +32,19 @@ path = "./"
 os.system("color a")
 os.system("Title AdventureGame")
 devmode = True
+class refs: #All folders - please use this in the future
+    class files:
+        loc = 'Resources/'
+        leaderboard = loc + 'leaderboard.txt'
+    plugins = 'Plugins/'
+    packs = 'Packs/'
 name = input("What is your name?")
 
 #Plugin loader
 plugins = {}
-for plugin in os.listdir('Plugins'):
-    if not plugin[0] == '$' and plugin.endswith('.py'):
-        file = open('Plugins/' + plugin, 'r')
+for plugin in os.listdir(refs.plugins):
+    if not plugin.startswith('$') and plugin.endswith('.py'):
+        file = open(refs.plugins + plugin, 'r')
         class new_plugin:
             exec(file.read())
         file.close()
@@ -80,7 +86,7 @@ if os.path.exists("__pycache__"): #remove cache
     shutil.rmtree("__pycache__")
 
 #pack selector
-files = os.listdir('Packs/')
+files = os.listdir(refs.packs)
 allfiles = []
 for file in files:
     if file.endswith('.py') and not file == 'AdventureGameDefinitiveEdition.py' and not file.startswith('$'): #Is a python file
@@ -106,7 +112,7 @@ else:
         except ValueError:
             mychoice = 0
             print('Autofill selected the first pack in the list for you')
-    myimport = 'Packs/' + allfiles[mychoice]
+    myimport = refs.packs + allfiles[mychoice]
 libraryname = myimport[:len(myimport) - 3]
 
 '''
@@ -142,7 +148,7 @@ myimport = __import__(libraryname) #import data from chosen map
 
 #Map importer
 class myimport:
-    _file = open('Packs/' + libraryname + '.py', 'r') #_ makes variable hidden in autocomplete
+    _file = open(refs.packs + libraryname + '.py', 'r') #_ makes variable hidden in autocomplete
     _contents = _file.read()
     _file.close()
     exec(_contents) #Run as normal code
@@ -503,7 +509,7 @@ if wintype == "winner":
     print("CONGRATULATIONS, you found the",win," in ",steps,"steps !!!")
     print("\n\n*******************************************************\n\n")
     end = time.time()   
-    readfile=open('./files/leaderboard.txt')
+    readfile=open(refs.files.leaderboard)
     lines=readfile.readlines()
     elapsed = end - start
     if float(elapsed) < float(lines[1]):
