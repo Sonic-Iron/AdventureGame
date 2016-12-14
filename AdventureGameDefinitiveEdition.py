@@ -30,7 +30,9 @@ itemcouldwin = []
 couldstart = []
 path = "./"
 os.system("color a")
+os.system("Title AdventureGame")
 devmode = True
+name = input("What is your name?")
 
 #Plugin loader
 plugins = {}
@@ -72,11 +74,16 @@ elif difficulty == "H":
     print('Hard difficulty selected')
 
 #setup
+<<<<<<< HEAD
 os.system("title AdventureGame")
+=======
+
+>>>>>>> origin/master
 
 if os.path.exists("__pycache__"): #remove cache
     shutil.rmtree("__pycache__")
 
+<<<<<<< HEAD
 files = os.listdir()
 allfiles = []
 for file in files:
@@ -105,6 +112,34 @@ else:
     myimport = allfiles[mychoice]
 
 libraryname = myimport[:len(myimport) - 3]
+=======
+dirs = os.listdir(path)
+
+filelist = list()
+i=0
+for file in dirs:
+    if file == "AdventureGameDefinitiveEdition.py":
+        ""
+    elif file == "files":
+        ""
+    else:
+        filelist.append(i)
+        filelist[i] = file
+        i=i+1
+        print(i,".",file[0:len(file)-3])
+
+
+chooseLibrary = "Which server do you want? 1-"+str(len(filelist))+" "
+mychoice = input(chooseLibrary)
+if mychoice == "":
+    mychoice = 1
+
+myimport = filelist[int(mychoice)-1]
+lengthoffilename = len(myimport)
+libraryname = myimport[0:lengthoffilename-3]
+
+
+>>>>>>> origin/master
 print(libraryname)
 
 myimport = __import__(libraryname) #import data from chosen map
@@ -330,6 +365,21 @@ while True:
                 print("That item is not in your inventory!")
         else:
             print("That item does not exist!")
+<<<<<<< HEAD
+=======
+
+        
+       
+
+    while len(inventory) > 5:
+        print("You have more than 5 items")
+        dropped_item = input("Which item would you like to drop?")
+        if dropped_item not in inventory:
+            print("That item is not in your inventory")
+        else:
+            database[current_location]["objects_in_building"].append(dropped_item)
+            inventory.remove(dropped_item)
+>>>>>>> origin/master
 
     elif cmd == "inventory":
         print(inventory)
@@ -447,6 +497,7 @@ teleport (also tp) go to a location''')
             database[current_location]["objects_in_building"].append(dropped_item)
             inventory.remove(dropped_item)
 
+
          
 
 if wintype == "death":
@@ -466,7 +517,6 @@ if wintype == "winner":
         name = lines[0]
         time = lines[1]
         print("You have beaten the highscorer of ",name,", they had a score of ",time,"seconds")
-        name = input("What is your name?")
         file = open("./files/leaderboard.txt" ,"w")
         file.write(name + "\n" + str(round(elapsed, 3)))
         file.close()

@@ -197,3 +197,4 @@ def default_monster_database():
        "health":10,
        "picture":":)"},
    }
+
