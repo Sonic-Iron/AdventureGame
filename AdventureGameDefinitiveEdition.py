@@ -79,7 +79,8 @@ os.system("title AdventureGame")
 if os.path.exists("__pycache__"): #remove cache
     shutil.rmtree("__pycache__")
 
-files = os.listdir()
+#pack selector
+files = os.listdir('Packs/')
 allfiles = []
 for file in files:
     if file.endswith('.py') and not file == 'AdventureGameDefinitiveEdition.py' and not file.startswith('$'): #Is a python file
@@ -89,6 +90,7 @@ if len(allfiles) == 0:
     print('No packs')
     while True:
         input('')
+
 elif len(allfiles) == 1:
     print('Only one pack (' + allfiles[0][:len(allfiles[0]) - 3] + ') - selecting that pack')
     mychoice = allfiles[0]
@@ -104,10 +106,10 @@ else:
         except ValueError:
             mychoice = 0
             print('Autofill selected the first pack in the list for you')
-    myimport = allfiles[mychoice]
-
+    myimport = 'Packs/' + allfiles[mychoice]
 libraryname = myimport[:len(myimport) - 3]
 
+'''
 dirs = os.listdir(path)
 
 filelist = list()
@@ -136,10 +138,19 @@ libraryname = myimport[0:lengthoffilename-3]
 print(libraryname)
 
 myimport = __import__(libraryname) #import data from chosen map
+'''
 
-database = myimport.default_database()
-object_database = myimport.default_object_database()
-monster_database = myimport.default_monster_database()
+#Map importer
+class myimport:
+    _file = open('Packs/' + libraryname + '.py', 'r') #_ makes variable hidden in autocomplete
+    _contents = _file.read()
+    _file.close()
+    exec(_contents) #Run as normal code
+
+#Link for old code
+database = myimport.database
+object_database = myimport.object_database
+monster_database = myimport.monster_database
 
 
 for a in database:
@@ -358,15 +369,14 @@ while True:
                 print("That item is not in your inventory!")
         else:
             print("That item does not exist!")
-    while len(inventory) > 5:
-        print("You have more than 5 items")
-        dropped_item = input("Which item would you like to drop?")
-        if dropped_item not in inventory:
-            print("That item is not in your inventory")
-        else:
-            database[current_location]["objects_in_building"].append(dropped_item)
-            inventory.remove(dropped_item)
-
+        while len(inventory) > 5:
+            print("You have more than 5 items")
+            dropped_item = input("Which item would you like to drop?")
+            if dropped_item not in inventory:
+                print("That item is not in your inventory")
+            else:
+                database[current_location]["objects_in_building"].append(dropped_item)
+                inventory.remove(dropped_item)
     elif cmd == "inventory":
         print(inventory)
 

@@ -1,5 +1,4 @@
-def default_database():
-    return {
+database = {
     "House":{
          "description":"It's an old house, it's a little drafty...it could be haunted",
          "objects_in_building" : ["a lantern","pickaxe"],
@@ -55,8 +54,7 @@ def default_database():
               "type":"General_point"},
     }
 
-def default_object_database():
-    return {
+object_database = {
     "a leaf":{
         "attack" : 2,
         "description" : "a clear leaf from a diamond tree",
@@ -164,8 +162,7 @@ def default_object_database():
 
 
 
-def default_monster_database():
-    return {
+monster_database = {
    "hairy spider":{
         "name":"Incy wincy spider",
         "description":"very large and hairy, has lots of poison",
