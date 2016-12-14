@@ -167,7 +167,7 @@ print("\nYou are on a mission to find the",win,"in the shortest number of steps,
 input("press ENTER")
 while True:
     start = time.time()
-    print("You are at the ",current_location)
+    print("You are at the", current_location)
     cmd = input("\nEnter a command : ")
 
     for a in inventory: #check inventory for collectables
@@ -309,7 +309,7 @@ while True:
                 coins = coins - 1 
                 inventory.append(picked_up_item)
                 database[current_location]['objects_in_building'].remove(picked_up_item)
-                print("Your inventory is",inventory)
+                print("Your inventory is", inventory)
                 info()
             else:
                 inventory.append(picked_up_item)
@@ -334,11 +334,9 @@ while True:
     elif cmd == "inventory":
         print(inventory)
 
-
-
     elif database[current_location]["type"] == "Work_point":
         if cmd == ("work"):
-            print("You work for",Work_seconds,"hours")
+            print("You work for", Work_seconds, "hours")
             oldworksecs = Work_seconds
             while Work_seconds  > 0:
                 print(Work_seconds)
@@ -349,8 +347,6 @@ while True:
             hunger = hunger - 10
             Work_seconds = oldworksecs
             info()
-
-
 
     elif cmd == "sleep":
         sleepy = sleep_seconds
