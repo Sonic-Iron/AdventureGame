@@ -10,7 +10,7 @@ print("Use this in terminal")
 
 
 #imports
-import random, time, os, sys, shutil
+import random, time, os, sys, shutil, getpass
 import os.path
 
 #variables
@@ -25,6 +25,7 @@ attack_strength = 0
 brought_item = 0
 sword_durability = 10
 collectables = ["squashed monster in a bottle","broken sword"]
+
 #admin
 itemcouldwin = []
 couldstart = []
@@ -32,13 +33,38 @@ path = "./"
 os.system("color a")
 os.system("Title AdventureGame")
 devmode = True
+
 class refs: #All folders - please use this in the future
     class files:
         loc = 'Resources/'
         leaderboard = loc + 'leaderboard.txt'
     plugins = 'Plugins/'
     packs = 'Packs/'
-name = input("What is your name?")
+
+#Settings loader
+file = open('settings.txt', 'r')
+f = file.read().split('\n')
+file.close()
+for line in f:
+    try:
+        if not line == '':
+            line = line.split(':')
+            if line[0] == 'colour':
+                os.system('color ' + line[1])
+            elif line[0] == 'title':
+                os.system('title ' + line[1] + '')
+            elif line[0] == 'name':
+                if line[1] == '@username':
+                    name = getpass.getuser()
+                else:
+                    name = line[1]
+    except:
+        print('Settings: Error with line "' + line + '"')
+
+try: #Check if it has already been set by settings
+    print('Name:', name)
+except NameError:
+    name = input("What is your name?")
 
 #Plugin loader
 plugins = {}
