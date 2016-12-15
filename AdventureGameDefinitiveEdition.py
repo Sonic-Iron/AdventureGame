@@ -10,7 +10,7 @@ print("Use this in terminal")
 
 
 #imports
-import random, time, os, sys, shutil, getpass
+import random, time, os, sys, shutil, getpass, threading, winsound
 import os.path
 
 #variables
@@ -38,8 +38,22 @@ class refs: #All folders - please use this in the future
     class files:
         loc = 'Resources/'
         leaderboard = loc + 'leaderboard.txt'
+    class sounds:
+        loc = 'Resources/Sounds/'
+        start = loc + 'start.py'
     plugins = 'Plugins/'
     packs = 'Packs/'
+
+def play_sound(address): #Play sound from file
+    def launch(data):
+        for sound in data:
+            winsound.Beep(sound[0], sound[1]) #Freq, duration pair
+    file = open(address)
+    data = eval(file.read()) #Change from string to list by runnning it
+    file.close()
+    sound_thread = threading.Thread(name='Sound: ' + address, args=[data], target=launch, daemon=True)
+    sound_thread.start() #Start thread so the sounds can play while the game is still running
+play_sound(refs.sounds.start) #Play a sound
 
 #Settings loader
 file = open('settings.txt', 'r')
@@ -59,7 +73,7 @@ for line in f:
                 else:
                     name = line[1]
     except:
-        print('Settings: Error with line "' + line + '"')
+        print('Settings: Error with line "' + line + '"') #Print error message
 
 try: #Check if it has already been set by settings
     print('Name:', name)
@@ -78,12 +92,12 @@ for plugin in os.listdir(refs.plugins):
 
 #difficulty settings
 difficulty = None
-while not (difficulty == 'E' or difficulty == 'M' or difficulty == 'H'):
+while not (difficulty == 'E' or difficulty == 'M' or difficulty == 'H'): #Go until the difficulty level is valid
     if not difficulty == None:
         print(difficulty, 'is not a diffulty level')
     difficulty = input("What is the difficulty? Easy[E], medium[M] or Hard[H]\n").upper()
 
-if difficulty == "E":
+if difficulty == "E": #Interpret input
     energy = 150
     hunger = 150
     Work_seconds = 3
@@ -118,17 +132,17 @@ for file in files:
     if file.endswith('.py') and not file == 'AdventureGameDefinitiveEdition.py' and not file.startswith('$'): #Is a python file
         allfiles.append(file)
 
-if len(allfiles) == 0:
+if len(allfiles) == 0: #No packs - program can't run
     print('No packs')
     while True:
-        input('')
+        input('') #Stop the user from progressing
 
-elif len(allfiles) == 1:
+elif len(allfiles) == 1: #Only one pack - choose it
     print('Only one pack (' + allfiles[0][:len(allfiles[0]) - 3] + ') - selecting that pack')
     mychoice = allfiles[0]
     myimport = mychoice
 else:
-    print('Packs (' + str(len(allfiles)) + '):')
+    print('Packs (' + str(len(allfiles)) + '):') #Multiple packs - bring up the UI
     for file_num in range(len(allfiles)):
         print(str(file_num + 1) + ': ' + allfiles[file_num][:len(allfiles[file_num]) - 3])
     mychoice = -1
@@ -179,7 +193,7 @@ class myimport:
     _file.close()
     exec(_contents) #Run as normal code
 
-#Link for old code
+#Link for names to old code
 database = myimport.database
 object_database = myimport.object_database
 monster_database = myimport.monster_database
