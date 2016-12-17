@@ -1,5 +1,4 @@
 #-*- coding:UTF-8 -*-
-print("Do not put in a false answer for the pack, it will crash")
 print("Use this in terminal")
 
 
