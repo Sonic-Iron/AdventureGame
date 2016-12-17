@@ -2,11 +2,6 @@
 print("Do not put in a false answer for the pack, it will crash")
 print("Use this in terminal")
 
-#will need to use this code later
-#
-#  s = Sound() 
-#  s.read('sound.mp3') 
-#  s.play()
 
 
 #imports
@@ -529,6 +524,7 @@ teleport (also tp) go to a location''')
     #Non commands
     if xp > 10:
         print("You leveled up one level")
+        xp = 0 
 
     while len(inventory) > 5:
         print("You have more than 5 items")

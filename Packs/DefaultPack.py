@@ -50,7 +50,7 @@ database = {
     "Portal":{"location_name":"Portal",
               "description":"Somewhere for other players to drop in",
               "objects_in_building":[],
-              "directions":["Business","Forest"],
+              "directions":["House","Friends House","Pond","Village Hall","Blacksmiths"],
               "type":"General_point"},
     }
 
