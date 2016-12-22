@@ -1,8 +1,6 @@
 #-*- coding:UTF-8 -*-
 print("Use this in terminal")
 
-
-
 #imports
 import random, time, os, sys, shutil, getpass, threading, winsound
 import os.path
@@ -89,7 +87,7 @@ difficulty = None
 while not (difficulty == 'E' or difficulty == 'M' or difficulty == 'H'): #Go until the difficulty level is valid
     if not difficulty == None:
         print(difficulty, 'is not a diffulty level')
-    difficulty = input("What is the difficulty? Easy[E], medium[M] or Hard[H]\n").upper()
+    difficulty = input("What is the difficulty? Easy[E], Medium[M] or Hard[H]\n").upper()
 
 if difficulty == "E": #Interpret input
     energy = 150
@@ -256,16 +254,13 @@ while True:
                 
     if cmd == "" or cmd == "help":
         helper()
-
         
     if cmd == "health": #show info for player
         info()
 
-
     if energy < 0:
         wintype = "death"
         break
-
 
     if hunger < 0:
         wintype = "death"
@@ -513,10 +508,20 @@ teleport (also tp) go to a location''')
             print("Couldn't get item")
     
     elif cmd == "highscore":
-        readfile=open('./files/leaderboard.txt')
-        lines=readfile.readlines()
-        print("The current highscore is by...\n",(lines[0]),"and their score is...\n",(lines[1]),"seconds,\n if you beat it you get to be the highscorer for this computer \n")
+        readfile=open(refs.files.leaderboard)
+        lines=readfile.read().split('\n')
+        print("The current highscore is held by", lines[0], "for", lines[1], "seconds, if you beat it you get to be the highscorer for this computer")
         readfile.close()
+
+    elif cmd == 'end' and devmode:
+        win_by = input('Exit through [D]eath or [I]tem?\n').lower()
+        if win_by == 'd':
+            wintype = 'death'
+            break
+        elif win_by == 'i':
+            wintype = 'winner'
+            break
+    
     else:
         print(cmd, 'not recognised')
 
@@ -540,9 +545,11 @@ if wintype == "death":
     time.sleep(10)
 if wintype == "winner":
     os.system("cls")
-    print("\n\n*******************************************************\n\n")
-    print("CONGRATULATIONS, you found the",win," in ",steps,"steps !!!")
-    print("\n\n*******************************************************\n\n")
+    winmessage = "CONGRATULATIONS, you found the " + str(win) + " in " + str(steps) + " steps !!!"
+    filler = '*' * len(winmessage)
+    print("\n\n" + filler + "\n\n")
+    print(winmessage)
+    print("\n\n" + filler + "\n\n")
     end = time.time()   
     readfile=open(refs.files.leaderboard)
     lines=readfile.readlines()
@@ -551,7 +558,7 @@ if wintype == "winner":
         name = lines[0]
         time = lines[1]
         print("You have beaten the highscorer of ",name,", they had a score of ",time,"seconds")
-        file = open("./files/leaderboard.txt" ,"w")
+        file = open(refs.files.leaderboard ,"w")
         file.write(name + "\n" + str(round(elapsed, 3)))
         file.close()
         readfile.close()
