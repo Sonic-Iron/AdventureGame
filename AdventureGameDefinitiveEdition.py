@@ -33,6 +33,7 @@ class refs: #All folders - please use this in the future
     class sounds:
         loc = 'Resources/Sounds/'
         start = loc + 'start.py'
+        win = loc + 'win.py'
     plugins = 'Plugins/'
     packs = 'Packs/'
 
@@ -542,27 +543,27 @@ teleport (also tp) go to a location''')
 if wintype == "death":
     os.system("cls")
     print("You died")
-    time.sleep(10)
 if wintype == "winner":
     os.system("cls")
+    play_sound(refs.sounds.win)
     winmessage = "CONGRATULATIONS, you found the " + str(win) + " in " + str(steps) + " steps !!!"
     filler = '*' * len(winmessage)
     print("\n\n" + filler + "\n\n")
     print(winmessage)
     print("\n\n" + filler + "\n\n")
     end = time.time()   
-    readfile=open(refs.files.leaderboard)
-    lines=readfile.readlines()
     elapsed = end - start
-    if float(elapsed) < float(lines[1]):
-        name = lines[0]
-        time = lines[1]
-        print("You have beaten the highscorer of ",name,", they had a score of ",time,"seconds")
-        file = open(refs.files.leaderboard ,"w")
-        file.write(name + "\n" + str(round(elapsed, 3)))
+    file = open(refs.files.leaderboard, 'r')
+    contents = file.read().split('\n')
+    file.close()
+    if elapsed < float(contents[1]):
+        print('New high score')
+        file = open(refs.files.leaderboard, 'w')
+        file.write(name + '\n' + str(round(elapsed, 3)))
         file.close()
-        readfile.close()
+        print('Saved to file')
     else:
-        print("Sorry, you did not beat the current highscorer,",(lines[0]))
-    readfile.close()
-    time.sleep(10)
+        print('Too bad!', contents[0], 'still holds the high score of', contents[1])
+
+while True:
+    time.sleep(0.5) #Keep window alive
