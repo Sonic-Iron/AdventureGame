@@ -21,9 +21,6 @@ collectables = ["squashed monster in a bottle","broken sword"]
 #admin
 itemcouldwin = []
 couldstart = []
-path = "./"
-os.system("color a")
-os.system("Title AdventureGame")
 devmode = True
 
 class refs: #All folders - please use this in the future
@@ -197,19 +194,17 @@ for a in database:
         for b in database[a]["objects_in_building"]:
             if b not in itemcouldwin:
                 itemcouldwin.append(b)
-            
-x = random.choice(itemcouldwin)
-win = x
+                
+win = random.choice(itemcouldwin)
 
-for a in database:
-    if "dependency" in database[a]:
+for place in database:
+    if "dependency" in database[place]:
         ""
     else:
-        if a not in couldstart:
-            couldstart.append(a)
+        if place not in couldstart:
+            couldstart.append(place)
 
-x = random.randint(0,len(couldstart)-1)
-current_location = couldstart[x]
+current_location = couldstart[random.randint(0,len(couldstart)-1)]
 
 
 def info():
@@ -472,23 +467,30 @@ teleport (also tp) go to a location''')
             print(object_database[current_item]["description"])
             print("It has",object_database[current_item]["attack_points"]," attack points")
 
-    elif cmd == "give item" and devmode:
-        for c in object_database:
-            print(c)
-        I =input("Which item would you like to have?")
-        if I in object_database:
-            for a in range(3):
-                print("Giving.")
-                time.sleep(0.5)
-                os.system("cls")
-                print("Giving..")
-                time.sleep(0.5)
-                os.system("cls")
-                print("Giving...")
-                time.sleep(0.5)
-                os.system("cls")
-            time.sleep(0.2)
-            inventory.append(I)
+    elif (cmd == "give item" or ("get" in cmd)) and devmode:
+        if cmd == "give item":
+            for c in object_database:
+                print(c)
+            I =input("Which item would you like to have?")
+            if I in object_database:
+                for a in range(3):
+                    print("Giving.")
+                    time.sleep(0.5)
+                    os.system("cls")
+                    print("Giving..")
+                    time.sleep(0.5)
+                    os.system("cls")
+                    print("Giving...")
+                    time.sleep(0.5)
+                    os.system("cls")
+                time.sleep(0.2)
+                inventory.append(I)
+        elif "get " in cmd:
+            if cmd[4:] in object_database:
+                inventory.append(cmd[4:])
+            else:
+                print("That item is not avaliable")
+        
 
     elif (cmd == "teleport" or cmd == 'tp') and devmode:
         for a in database:
@@ -521,8 +523,7 @@ teleport (also tp) go to a location''')
             break
         elif win_by == 'i':
             wintype = 'winner'
-            break
-    
+            break  
     else:
         print(cmd, 'not recognised')
 
