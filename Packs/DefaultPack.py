@@ -164,7 +164,7 @@ object_database = {
 
 monster_database = {
    "hairy spider":{
-        "name":"Incy wincy spider",
+        "name":"spider",
         "description":"very large and hairy, has lots of poison",
         "health":5,
         "picture":":)"},
@@ -194,4 +194,8 @@ monster_database = {
        "health":10,
        "picture":":)"},
    }
+
+#sound_database = {
+ #   "start":[(600, 300), (1500, 600)],
+  #  "win":[(200, 100), (400, 100), (600, 100), (800, 800)]},
 
