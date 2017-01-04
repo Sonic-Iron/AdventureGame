@@ -355,12 +355,12 @@ while True:
                             energy = energy - monster_database[current_monster]["health"]
                             current_location = new_location
                             steps += 1
-                            print("You get defeated by the", current_monster, "and get trired")
+                            print("You get defeated by the", current_monster, "and get tired")
                             info()
                     elif what_to_do == "run":
                         energy = energy - 5
                         steps = steps + 1
-                        print("You run back to your previous location and get slighly tried")
+                        print("You run back to your previous location and get slighly tired")
                     else:
                         print("\nYou did not run away or fight the monster so you get defeated by it anyway")
                         energy = energy - monster_database[current_monster]["health"]
@@ -443,11 +443,11 @@ while True:
             print("That item is not in your inventory")
         else:
             if object_database[eat]["type"] == "eat":
-                print("You eat it, that was very refreashing")
+                print("You eat it, that was very refreshing!")
                 hunger = hunger + 15
                 inventory.remove(eat)
             else:
-                print("That is not a food\n")
+                print("That is not an ediable item\n")
                 
     elif cmd == 'devmode':
         print('''Devmode help:
@@ -543,7 +543,7 @@ teleport (also tp) go to a location''')
 
 if wintype == "death":
     os.system("cls")
-    print("You died")
+    print("You died!!")
 if wintype == "winner":
     os.system("cls")
     play_sound(refs.sounds.win)
@@ -558,13 +558,13 @@ if wintype == "winner":
     contents = file.read().split('\n')
     file.close()
     if elapsed < float(contents[1]):
-        print('New high score')
+        print('You got the new high score of',round(elapsed, 3),'seconds')
         file = open(refs.files.leaderboard, 'w')
         file.write(name + '\n' + str(round(elapsed, 3)))
         file.close()
         print('Saved to file')
     else:
-        print('Too bad!', contents[0], 'still holds the high score of', contents[1])
+        print('Too bad!', contents[0], 'still holds the high score of', contents[1],"seconds")
 
 while True:
     time.sleep(0.5) #Keep window alive
