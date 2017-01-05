@@ -284,11 +284,31 @@ while True:
         if len(database[current_location]['objects_in_building']) <= 0:
             print("\nThere's nothing else here")
         else:
-            print("\nYou can see", database[current_location]['objects_in_building'])
+            togo = None
+            for plugin in plugins:
+                try:
+                    togo = plugins[plugin].format_list(database[current_location]['objects_in_building'])
+                    break
+                except AttributeError:
+                    print(plugin)
+            if togo == None:
+                print("\nYou can see", database[current_location]['objects_in_building'])
+            else:
+                print("\nYou can see", togo)
            
     elif cmd == "move":
         print("Where would you like to move to?")
-        print(database[current_location]["directions"])
+        togo = None
+        for plugin in plugins:
+            try:
+                togo = plugins[plugin].format_list(database[current_location]['directions'])
+                break
+            except AttributeError:
+                print(plugin)
+        if togo == None:
+            print("\nYou can see", database[current_location]['directions'])
+        else:
+            print("\nYou can see", togo)
         new_location = input("")
         if new_location not in database[current_location]['directions']: #Can't find location
            print("Can't go there...")
