@@ -187,10 +187,10 @@ class myimport:
 database = myimport.database
 object_database = myimport.object_database
 monster_database = myimport.monster_database
-#sound_database = myimport.sound_database create another database
+#sound_database = myimport.sound_database create #another database
 #then just execute the sound you want to play
-# so exec(sound_database["win"]) would play the 'win' sound
-#is this too complicated though?
+# so play_soundsound_database["win"] would play the 'win' sound
+#is this too complicated though? 
 #we would have to include the same names for the packs for the sounds that we make, unlike the monster, place and item databases where we can put what ever we want
 
 
