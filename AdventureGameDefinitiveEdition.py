@@ -17,6 +17,9 @@ attack_strength = 0
 brought_item = 0
 sword_durability = 10
 collectables = ["squashed monster in a bottle","broken sword"]
+# text messaging
+last_mess = ""
+
 
 #admin
 itemcouldwin = []
@@ -214,7 +217,14 @@ current_location = couldstart[random.randint(0,len(couldstart)-1)]
 
 def info():
     print("you have :\n\t",level,"\tlevels.\n\t",coins,"\tcoins.\n\t",hunger," \thunger.\n\t",energy," \tenergy. \n\t",xp," \txp.\n\t",steps," \tsteps.")
-
+def cheakmess(last_mess):
+    fileHandle = open ('./multiplayer.txt',"r")
+    lineList = fileHandle.readlines()
+    fileHandle.close()
+    lowmess = lineList[len(lineList)-1]
+        parts = lowmess.split(":")
+        print(parts[1],"said",parts[2])# messaging program, the program has to be in the same location and it uses player1 as your name
+        last_mess = lowmess
 
 def helper(): #help tool
         print("You can 'look', 'move', 'health','drop item','pick up', 'inventory','work','sleep")
@@ -253,7 +263,7 @@ while True:
             if b in a:
                 energy = energy + 5
                 
-    if cmd == "" or cmd == "help":
+    if cmd == "help":
         helper()
         
     if cmd == "health": #show info for player
@@ -333,7 +343,7 @@ while True:
                                if attack_strength > (monster_database[current_monster]["health"]):                 
                                    xp = xp + 1  
                                    print("You defeated the monster")
-                                   energy = energy - monster_database[current_monster]["health"]
+                                   current_location = new_location
                                    steps += 1
                                    info()
                                else:
@@ -565,6 +575,8 @@ teleport (also tp) go to a location''')
         else:
             database[current_location]["objects_in_building"].append(dropped_item)
             inventory.remove(dropped_item)
+    cheakmess(last_mess)
+    
 
 if wintype == "death":
     os.system("cls")
