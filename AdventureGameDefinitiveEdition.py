@@ -222,6 +222,7 @@ def cheakmess(last_mess):
     lineList = fileHandle.readlines()
     fileHandle.close()
     lowmess = lineList[len(lineList)-1]
+    if not lowmess == last_mess:
         parts = lowmess.split(":")
         print(parts[1],"said",parts[2])# messaging program, the program has to be in the same location and it uses player1 as your name
         last_mess = lowmess
